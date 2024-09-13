@@ -26,20 +26,20 @@
                     <Suitcase />
                 </el-icon>
                 <template #title>软件管理</template>
-            </el-menu-item>
-            <el-menu-item index="/">
+            </el-menu-item> -->
+            <el-menu-item index="/device">
                 <el-icon>
                     <Grid />
                 </el-icon>
                 <template #title>设备管理</template>
             </el-menu-item>
-            <el-menu-item index="/">
+            <!-- <el-menu-item index="/">
                 <el-icon>
                     <UserFilled />
                 </el-icon>
                 <template #title>用户管理</template>
-            </el-menu-item>
-            <el-menu-item index="/other">
+            </el-menu-item> -->
+            <!-- <el-menu-item index="/other">
                 <el-icon>
                     <document />
                 </el-icon>

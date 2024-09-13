@@ -17,8 +17,14 @@ export default defineConfig({
       '/dev-api': {
         // 后台地址
         target: 'http://192.168.1.39:8888/',
+        // target: 'http://47.94.161.154:8090/',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/dev-api/, '')
+      },
+      '/files': {
+        target: 'http://192.168.1.39:8888/files',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/files/, '')
       }
     }
   }

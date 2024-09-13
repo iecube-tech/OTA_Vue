@@ -1,7 +1,23 @@
 <template>
     <div>
-        <el-button type="primary" link size="large" @click="firmwareDialog = true">发布新版本</el-button>
+        <el-button type="primary" size="large" @click="firmwareDialog = true">发布新版本</el-button>
     </div>
+
+    <el-row style="margin-top: 1em;">
+        <span>产品Id：
+            <span style="color: #33b8b9;">
+                {{ route.params.id }}
+            </span>
+        </span>
+    </el-row>
+
+    <el-row style="margin-top: 1em;">
+        <span>主动升级_mqtt_Topic：
+            <span style="color: #33b8b9;">
+                {{ 'IECUBE/OTA/' + route.params.id + '/ActiveUpgrade' }}
+            </span>
+        </span>
+    </el-row>
 
     <el-descriptions v-for="(item, i) in firmwareVoList" :title="item.version" style="margin-top: 30px;">
         <el-descriptions-item label="包名称：">{{ item.originFilename }}</el-descriptions-item>
@@ -11,10 +27,16 @@
         <el-descriptions-item label="MD5 :">
             {{ item.md5 }}
         </el-descriptions-item>
-        <el-descriptions-item label="地址:">
-            <el-button link type="primary">
+        <el-descriptions-item label="原始包地址:">
+            <a :href="item.link">
                 {{ item.link }}
-            </el-button>
+            </a>
+        </el-descriptions-item>
+
+        <el-descriptions-item label="CDN地址:">
+            <a :href="item.cdn">
+                {{ item.cdn }}
+            </a>
         </el-descriptions-item>
 
         <el-descriptions-item label="版本特性 :">
@@ -40,7 +62,7 @@
                     </div>
                     <template #tip>
                         <div class="el-upload__tip">
-                            上传提示
+                            如果上传zip包，则自动解压到cdn站点。
                         </div>
                     </template>
                 </el-upload>
@@ -80,6 +102,7 @@ interface firmwareVo {
     md5: string
     createTime: Date
     link: string
+    cdn: string
 }
 interface RuleForm {
     nodeId: number

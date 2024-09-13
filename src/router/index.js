@@ -37,6 +37,20 @@ const router = createRouter({
           ]
         },
         {
+          path: '/device',
+          name: 'device',
+          meta: { title: '设备管理' },
+          component: () => import('@/views/device/device.vue'),
+          children: [
+            {
+              path: ':id/:name',
+              name: 'deviceListOfProduct',
+              meta: { title: 'name' },
+              component: () => import('@/views/device/child/deviceDetail.vue'),
+            }
+          ]
+        },
+        {
           path: '/other',
           name: 'other',
           meta: { title: '其他' },
