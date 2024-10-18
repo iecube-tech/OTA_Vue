@@ -5,7 +5,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/index',
       name: 'home',
       meta: { title: 'OTA' },
       component: () => import('@/views/home/layout.vue'),
@@ -58,6 +58,11 @@ const router = createRouter({
         }
       ]
     },
+    {
+      path: '/',
+      nameL: 'login',
+      component: () => import('@/views/login/feishuAuth/index.vue')
+    }
   ]
 })
 
