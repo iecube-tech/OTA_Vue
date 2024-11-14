@@ -3,7 +3,7 @@
         <el-aside class="aside_two">
             <TREE @leafClick="leafClick"></TREE>
         </el-aside>
-        <el-main v-if="leaf != null">
+        <el-main class="fixed-main" v-if="leaf != null">
             <RouterView :key="leaf.id + leaf.name" />
         </el-main>
     </el-container>

@@ -1,8 +1,7 @@
 import httpInstance from "@/utils/http";
-export function GetUserInfo(code) {
+export function GetProduct(id) {
     return httpInstance({
-        url: '/auth/login',
+        url: '/product/' + id,
         method: 'GET',
-        params: { code: code }
     })
 }

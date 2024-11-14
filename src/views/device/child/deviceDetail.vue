@@ -1,6 +1,18 @@
 <template>
-    <div>
-        <el-table :data="deviceList" border style="width: 100%">
+    <div class="fixed-parent">
+        <el-row class="fixed-div" style="justify-content: space-between; align-items: center;">
+            <div style="font-size: 1.5em;">
+                <span v-if="leaf">
+                    {{ leaf.name }}
+                </span>
+                设备列表
+            </div>
+            <div>
+            </div>
+        </el-row>
+
+        <el-table :data="deviceList" header-cell-class-name="table-header-cell" cell-class-name="table-cell"
+            style="width: 100%;margin-top: 2em;">
             <el-table-column prop="did" label="设备Id" width="180" />
             <el-table-column prop="fun" label="设备类型" width="180" />
             <el-table-column prop="name" label="设备名" />
@@ -25,22 +37,19 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column fixed="right" label="操作" min-width="120">
+            <el-table-column v-if="isDeveloper" fixed="right" label="操作" width="200">
                 <template #default="scope">
-                    <el-button v-if="scope.row.status && scope.row.connecting" link type="primary"
+                    <el-button :disabled="!(scope.row.status && scope.row.connecting)"
                         @click="handleDeviceUpgrade(scope.row, scope.$index)">
-                        设备升级
-                    </el-button>
-                    <el-button v-else link>
-                        设备升级
+                        下发版本
                     </el-button>
                 </template>
             </el-table-column>
         </el-table>
     </div>
 
-    <el-dialog v-model="upgradeDialog" title="选择升级版本">
-        <el-select v-model="firmwareIdChoice" placeholder="选择要升级的版本">
+    <el-dialog v-model="upgradeDialog" title="选择版本">
+        <el-select v-model="firmwareIdChoice" placeholder="选择要下发的版本">
             <el-option v-for="item in firmwareVoList" :key="item.id" :value="item.id" :label="item.version">
                 {{ item.version }}
             </el-option>
@@ -58,6 +67,8 @@ import dayjs from 'dayjs'
 import { GetDeviceList } from '@/api/device/getDeviceList.js'
 import { DevicePassiveUpgrade } from '@/api/device/devicePassiveUpgrade.js'
 import { GETProductFirmware } from '@/api/firmware/getProductFirmware.js'
+import { GetProduct } from '@/api/product/getProductNodeById.js'
+import { IsDeveloper } from '@/api/pManage/isDeveloper';
 import { ElMessage } from 'element-plus';
 
 const route = useRoute();
@@ -79,6 +90,9 @@ const getDeviceList = (productId) => {
     GetDeviceList(productId).then(res => {
         if (res.state == 200) {
             deviceList.value = res.data
+            for (let i = 0; i < 30; i++) {
+                deviceList.value.push(deviceList.value[0])
+            }
         } else {
             ElMessage.error(res.message)
         }
@@ -125,13 +139,43 @@ const handleSure = () => {
     })
 }
 
+interface Tree {
+    id: number
+    pId: number
+    name: string
+    type: number
+    children?: Tree[]
+}
+
+const leaf = ref<Tree>()
+const getThisProduct = (id) => {
+    GetProduct(id).then(res => {
+        if (res.state == 200) {
+            leaf.value = res.data
+        } else {
+            ElMessage.error(res.message)
+        }
+    })
+}
+
+const isDeveloper = ref(false)
+
+const checkIsDeveloper = (nodeId) => {
+    IsDeveloper(nodeId).then(res => {
+        if (res.state == 200) {
+            isDeveloper.value = res.data
+        }
+    })
+}
 
 onBeforeMount(() => {
     setTimeout(() => {
         productId.value = route.params.id
         getDeviceList(productId.value)
         getFirmwareVoList(productId.value)
-    }, 10)
+        getThisProduct(productId.value)
+        checkIsDeveloper(productId.value)
+    }, 50)
 
 })
 </script>

@@ -1,8 +1,7 @@
 import httpInstance from "@/utils/http";
-export function GetUserInfo(code) {
+export function GetAdmin() {
     return httpInstance({
-        url: '/auth/login',
+        url: '/admin/all',
         method: 'GET',
-        params: { code: code }
     })
 }

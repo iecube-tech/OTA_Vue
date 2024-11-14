@@ -6,8 +6,8 @@
     <div v-if="sdk">
         h5sdk reday
         <div>appid: {{ appId }}</div>
-        <div>login临时授权码: {{ loginCode }}</div>
-        <div>userInfo:{{ userInfo }}</div>
+        <div v-if="loginCode">login临时授权码: {{ loginCode }}</div>
+        <div v-if="userInfo != null">userInfo:{{ userInfo.userInfoDto.name }}</div>
     </div>
 
 </template>
@@ -16,6 +16,8 @@
 import { onMounted, ref } from 'vue';
 import { GetAppId } from '@/api/fsAuth/getAppId';
 import { GetUserInfo } from '@/api/fsAuth/getUserInfo';
+import router from '@/router';
+import { ElMessage } from 'element-plus';
 
 let lang = window.navigator.language;
 console.log(lang);
@@ -63,8 +65,11 @@ const requestAccessLogin = () => {
                 GetUserInfo(code).then(res2 => {
                     if (res2.state == 200) {
                         userInfo.value = res2.data
+                        localStorage.setItem("Authorization", userInfo.value.userInfoDto.unionId)
+                        localStorage.setItem("userInfo", res2.data)
+                        router.push("/")
                     } else {
-                        console.error("获取登录信息失败")
+                        ElMessage.error("获取登录信息失败")
                     }
                 })
             },

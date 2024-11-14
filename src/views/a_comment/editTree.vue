@@ -1,11 +1,11 @@
 <template>
     <div class="tree_div">
         <el-tree class="tree" :data="product" node-key="id" default-expand-all :expand-on-click-node="false"
-            :highlight-current="true">
+            :highlight-current="true" @node-click="handleNodeClick">
             <template #default="{ node, data }">
                 <span class="custom-tree-node">
                     <span v-if="data.type == 1" class="node-left">
-                        <el-icon :size="'1em'">
+                        <el-icon :size="'1em'" style="margin-right: 0.5em;">
                             <Folder />
                         </el-icon>
                         <span v-if="data.edit === 0">{{ data.name }}</span>
@@ -98,9 +98,8 @@ const defaultProps = {
 const emits = defineEmits(["leafClick"])
 
 const handleNodeClick = (data: Tree) => {
-    if (data.type == 0) {
-        emits("leafClick", data)
-    }
+    console.log('dian')
+    emits("leafClick", data)
 }
 
 const product = ref<Tree[] | [] | any>([])
@@ -211,7 +210,6 @@ onBeforeMount(() => {
 
 .tree {
     width: auto;
-    font-size: 1.1em;
     height: 100%;
 }
 

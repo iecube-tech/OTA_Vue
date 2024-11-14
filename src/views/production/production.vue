@@ -28,7 +28,7 @@ const leaf = ref<Tree>()
 const leafClick = (data: Tree) => {
     leaf.value = data
     router.push({
-        name: 'firmwareOfProduct',
+        name: 'productionDetail',
         params: { id: data.id, name: data.name }
     })
 }

@@ -1,42 +1,28 @@
 <template>
     <div>
-        <!-- <div>
-            <el-button v-if="!isCollapse" type="primary" @click="isCollapse = true">折叠</el-button>
-            <el-button v-else @click="isCollapse = false">展开</el-button>
-        </div> -->
         <el-menu :default-active="active" class="menu" :collapse="props.isCollapse" router unique-opened>
-            <el-menu-item index="/">
+            <el-menu-item index="/admin">
                 <el-icon>
                     <Guide />
                 </el-icon>
                 <template #title>首页</template>
             </el-menu-item>
-            <el-menu-item index="/firmware">
-                <el-icon>
-                    <Suitcase />
-                </el-icon>
-                <template #title>版本管理</template>
+            <el-menu-item index="/admin/product">
+                <el-icon><icon-menu /></el-icon>
+                <template #title>产品管理</template>
             </el-menu-item>
-            <el-menu-item index="/device">
+            <el-menu-item index="/admin/administrator">
                 <el-icon>
-                    <Grid />
+                    <UserFilled />
                 </el-icon>
-                <template #title>设备管理</template>
+                <template #title>系统管理员</template>
             </el-menu-item>
-            <el-menu-item index="/production">
+            <el-menu-item index="/admin/production_member">
                 <el-icon>
-                    <Loading />
+                    <UserFilled />
                 </el-icon>
-                <template #title>生产</template>
+                <template #title>生产人员</template>
             </el-menu-item>
-
-            <!-- <el-menu-item index="/test">
-                <el-icon>
-                    <Loading />
-                </el-icon>
-                <template #title>生产</template>
-            </el-menu-item> -->
-
         </el-menu>
     </div>
 </template>

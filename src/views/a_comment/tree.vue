@@ -5,7 +5,7 @@
             <template #default="{ node, data }">
                 <span class="custom-tree-node">
                     <span v-if="data.type == 1" class="node-left">
-                        <el-icon :size="'1em'">
+                        <el-icon :size="'1em'" style="margin-right: 0.5em;">
                             <Folder />
                         </el-icon>
                         <span>{{ data.name }}</span>
@@ -69,7 +69,6 @@ onBeforeMount(() => {
 
 .tree {
     width: auto;
-    font-size: 1.1em;
     height: 100%;
 }
 

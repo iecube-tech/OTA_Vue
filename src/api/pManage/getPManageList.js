@@ -1,8 +1,7 @@
 import httpInstance from "@/utils/http";
-export function GetUserInfo(code) {
+export function GetPManages(nodeId) {
     return httpInstance({
-        url: '/auth/login',
+        url: '/pm/' + nodeId,
         method: 'GET',
-        params: { code: code }
     })
 }
