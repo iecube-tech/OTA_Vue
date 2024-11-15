@@ -9,6 +9,7 @@
                 <el-form-item label="选择部门">
                     <el-select v-model="selectedDepartment" placeholder="选择部门" style="width: 100%" remote
                         @change="departmentsChanged">
+                        <el-option key="open_department_id0" label="IECUBE" value="0" />
                         <el-option v-for="item in departments" :key="item.open_department_id" :label="item.name"
                             :value="item.open_department_id" />
                     </el-select>
@@ -16,7 +17,7 @@
 
                 <el-form-item label="选择成员">
                     <el-select v-model="selectedMembers" multiple placeholder="请先选择部门" style="width: 100%"
-                        @change="debounce(departmentsChanged, 200)">
+                        value-key="union_id" @change="debounce(departmentsChanged, 200)">
                         <el-option v-for="item in members" :key="item.union_id" :label="item.name" :value="item"
                             :disabled="disableList.includes(item.union_id)">
                             <el-row style="align-items: center;">

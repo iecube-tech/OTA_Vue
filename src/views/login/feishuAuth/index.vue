@@ -1,14 +1,14 @@
 <template>
     <div>
-        <div>飞书免登录demo</div>
+        <div>只允许内部人员通过飞书打开</div>
     </div>
 
-    <div v-if="sdk">
+    <!-- <div v-if="sdk">
         h5sdk reday
         <div>appid: {{ appId }}</div>
         <div v-if="loginCode">login临时授权码: {{ loginCode }}</div>
         <div v-if="userInfo != null">userInfo:{{ userInfo.userInfoDto.name }}</div>
-    </div>
+    </div> -->
 
 </template>
 

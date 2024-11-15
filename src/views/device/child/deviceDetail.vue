@@ -90,9 +90,6 @@ const getDeviceList = (productId) => {
     GetDeviceList(productId).then(res => {
         if (res.state == 200) {
             deviceList.value = res.data
-            for (let i = 0; i < 30; i++) {
-                deviceList.value.push(deviceList.value[0])
-            }
         } else {
             ElMessage.error(res.message)
         }
